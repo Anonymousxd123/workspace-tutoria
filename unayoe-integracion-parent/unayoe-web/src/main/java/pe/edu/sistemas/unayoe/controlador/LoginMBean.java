@@ -82,7 +82,6 @@ public class LoginMBean {
 		System.out.println("USUARIO " + name + "  con #" + sroles.length + " roles");
 			return sroles;
 		}
-
 		return null;
 	}
 	
