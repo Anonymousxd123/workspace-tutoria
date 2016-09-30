@@ -181,6 +181,7 @@ public class NotasAlumnosMBean {
 						case 2: pagina = "/paginas/ModuloRegulares/admin/ingresar/ingresarNotasAlumnosReg.xhtml"; break;
 					} break;
 		}	
+		System.out.println("cargar "+pagina);
 		return pagina;
     }
 	

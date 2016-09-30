@@ -20,10 +20,24 @@
 		</style>
 	</head>
 
-    <ui:composition template="/plantilla/ModuloRegulares/Plantillas/plantilla_ocaa_r.xhtml">
+    <ui:composition template="/plantilla/ModuloObservados/Plantillas/plantilla_decano_o.xhtml">
         <ui:define name="contenido">
+        
+        	<f:facet name="header">
+			<p:row>
+				<p:column colspan="3">Gestion de Actas de Tutoria >> Descargar actas</p:column>
+			</p:row>
+			</f:facet>
         <h:form>
-            <p:panel header="Carga de actas de tutoria" style="width: 450px;" >
+             <p:outputPanel id="pnlGridMensajes" style="width:400px;margin-top:5px;">
+				<p:row>
+    				<p:column colspan="4" rowspan="2">
+    					<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+   					</p:column>
+   				</p:row>
+   			</p:outputPanel>
+   			
+            <p:panel header="Descarga de actas de tutoria" style="width: 450px;" >
                 <p:panelGrid  id="pnlLoginAcceso" style="font-size: 12px;">     
                     <p:row>
                     	<p:column styleClass="ui-column-label-spij styleAlignRightColumn">
@@ -100,37 +114,33 @@
 						<p:column>
 							<p:selectOneMenu 
                     			id="selectOneSesion" 
-                    			value="#{gestionarActasMBean.tutoriaModelSelect.sesion}" 
-                    			valueChangeListener="#{gestionarActasMBean.validarCargaActas}"
+                    			value="#{gestionarActasMBean.tutoriaModelSelect.sesion}"                     			
+                    			valueChangeListener="#{gestionarActasMBean.validarSesion}"
                     			styleClass="ui-column-label-spij styleAlignRightColumn">
                         		<f:selectItem itemLabel="Elija la sesión: " />
                         		<f:selectItems 
                         			value="#{gestionarActasMBean.tutoriaModel.listarSesiones}"
                                     var="sesion" itemLabel="#{sesion.descSesion}"
-                                    itemValue="#{sesion.nroSesion}"/>
-                                <f:ajax event="change" execute="@this" render="fileUpload"/>
+                                    itemValue="#{sesion.nroSesion}"/>                                
                     		</p:selectOneMenu>
 						</p:column>
-					</p:row>
-                    
+					</p:row>                    
                     <p:spacer width="50px"/>
-                    
-                    <p:row>
-                    	<p:column styleClass="ui-column-label-spij styleAlignRightColumn" colspan="2">
-                    		<p:fileUpload 
-                    			id="fileUpload"                    			
-                    			fileUploadListener="#{gestionarActasMBean.gestorCargaActas}" mode="advanced"
-                    			label="Elegir archivo"
-                    			auto="true" 
-                    			disabled="#{gestionarActasMBean.desactivarCarga}"
-                    			invalidSizeMessage="El tamaño del archivo cargado ha excedido el límite (2MB)"
-                    			invalidFileMessage="El archivo tiene que ser un archivo PDF (pdf)"                     			
-                    			dragDropSupport="false" update="msgCargaActas" sizeLimit="2097152" fileLimit="3" 
-                    			allowTypes="/(\.|\/)(pdf)$/"/>
-                    		<p:growl id="msgCargaActas" showDetail="true" />
-                    	</p:column>
-                    </p:row>
-                </p:panelGrid>            
+                </p:panelGrid>      
+                
+	                <p:outputPanel id="pnlDescargar" style="width:400px;margin-top:10px;" visible="#{!gestionarActasMBean.desactivarDescarga}">                	
+	                	<p:row>
+	                		<p:column styleClass="ui-column-label-spij styleAlignRightColumn" colspan="2">                    		
+	                    		<p:commandButton                     			                  				
+	                    			value="Descargar Acta" icon="ui-icon-arrowthick-1-s"
+	                    			actionListener="#{gestionarActasMBean.descargarActa}"                    									
+	        						ajax="false">
+	        						<p:fileDownload value="#{gestionarActasMBean.file}"/>
+	    						</p:commandButton>    						
+	                   		</p:column>
+	                	</p:row>  
+					</p:outputPanel>  
+				
             </p:panel>
             </h:form>
         </ui:define>
