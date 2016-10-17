@@ -20,4 +20,9 @@ public class RolServicesImpl implements RolServices {
 		return rolDao.listarRoles();
 	}
 
+	@Override
+	public List<RolBO> getRolesByUser(String id) {
+		return  rolDao.getRolesByUser(id);
+	}
+
 }

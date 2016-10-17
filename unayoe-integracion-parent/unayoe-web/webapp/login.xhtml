@@ -8,14 +8,13 @@
 
 <ui:composition template="/plantilla/plantilla-login.xhtml">
 	<ui:define name="contenido">
+	
 		<f:view>
-
+		
 			<p:panel id="pnlLoginAcceso"
 				header="#{mensaje['demo.login.cabecera']}"
 				styleClass="ui-pnl-login ui-panel-main-view">
-				<p:messages id="msgSpijLoginAcceso" autoUpdate="true"
-					closable="true" />
-					
+				<p:messages id="msgSpijLoginAcceso" globalOnly="true"   />
 				<p:panelGrid id="pnlGridLoginAcceso">
 					<p:row>
 						<p:column styleClass="ui-column-label-spij styleAlignRightColumn">
@@ -48,8 +47,13 @@
 
 					<p:row>
 						<p:column colspan="2" styleClass="styleAlignRightColumn">
-							<input type="submit" id="login" name="login" value="Ingresar"
-								title="Ingresar"  />						
+						<!-- 	<input type="submit" id="login" name="login" value="Ingresar"
+								title="Ingresar"  /> -->
+								<p:commandButton id="login" ajax="false" value="Ingresar"
+								action="${loginMBean.doLogin}"
+								 update="msgSpijLoginAcceso">
+								</p:commandButton>
+														
 						</p:column>
 					</p:row>
 				</p:panelGrid>
@@ -57,6 +61,7 @@
 			</p:panel>
 	
 		</f:view>
+		
 	</ui:define>
 </ui:composition>
 </html>

@@ -31,6 +31,7 @@ public class UsuarioServicesImpl implements UsuarioServices {
 	public UsuarioBO obtenerUsuario(String usuario) throws Exception {
 		//System.out.println("usuario "+ usuario);
 		Usuario usuarioEntidad = usuarioDao.obtenerUsuario(usuario);
+		
 		return usuarioTransformerToBO.transformer(usuarioEntidad);
 	}
 	
